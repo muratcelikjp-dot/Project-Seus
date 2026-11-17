@@ -31,6 +31,7 @@ window.addEventListener('error', function(e){
 </script>
 
 <div class="screen abyss-home shield-gate" id="screen-wrap">
+  <div id="shield-preview-notice" class="shield-preview-notice" role="status" hidden>Shield animation preview · progress is not saved</div>
   <div class="flash" id="flash"></div>
 
   <main id="main-content" class="constellation-shell" aria-label="Ascend navigation">
@@ -55,12 +56,12 @@ window.addEventListener('error', function(e){
           </filter>
         </defs>
         <g class="network-base">
-          <path class="nerve-main" d="M195 257 C188 219 204 176 195 140"/>
-          <path class="nerve-main" d="M177 265 C145 247 119 220 99 196"/>
-          <path class="nerve-main" d="M213 265 C245 247 271 220 291 196"/>
-          <path class="nerve-main" d="M178 296 C145 317 121 349 104 375"/>
-          <path class="nerve-main" d="M195 303 C188 344 202 385 195 414"/>
-          <path class="nerve-main" d="M212 296 C245 317 269 349 286 375"/>
+          <path class="nerve-main nerve-hero" d="M195 257 C188 219 204 176 195 140"/>
+          <path class="nerve-main nerve-quests" d="M177 265 C145 247 119 220 99 196"/>
+          <path class="nerve-main nerve-skill" d="M213 265 C245 247 271 220 291 196"/>
+          <path class="nerve-main nerve-rewards" d="M178 296 C145 317 121 349 104 375"/>
+          <path class="nerve-main nerve-boss" d="M195 303 C188 344 202 385 195 414"/>
+          <path class="nerve-main nerve-stats" d="M212 296 C245 317 269 349 286 375"/>
         </g>
         <g class="network-flow">
           <path class="flow-hero" pathLength="1" d="M195 257 C188 219 204 176 195 140"/>
@@ -90,6 +91,7 @@ window.addEventListener('error', function(e){
       <a class="constellation-node gated-node node-hero" href="hero.html" aria-label="Hero" aria-disabled="true" tabindex="-1" data-wake-delay="420" data-icon-animation="hero" data-icon-duration="3180">
         <span class="node-label node-label-top" aria-hidden="true">Hero</span>
         <span class="node-frame" aria-hidden="true">
+          <span class="figma-node-art" aria-hidden="true"><img class="figma-node-shell" src="icons/home-command-center/shell-hero.svg" alt=""><img class="figma-node-icon figma-icon-hero" src="icons/home-command-center/icon-hero.png" alt=""></span>
           <span class="node-glyph node-glyph-raster node-glyph-hero"></span>
           <span class="node-icon-assembly icon-assembly-hero">
             <span class="icon-piece hero-helmet-piece"></span>
@@ -105,6 +107,7 @@ window.addEventListener('error', function(e){
       <a class="constellation-node gated-node node-quests" href="quests.html" aria-label="Quests" aria-disabled="true" tabindex="-1" data-wake-delay="260" data-icon-animation="quests" data-icon-duration="3180">
         <span class="node-label node-label-top" aria-hidden="true">Quests</span>
         <span class="node-frame" aria-hidden="true">
+          <span class="figma-node-art" aria-hidden="true"><img class="figma-node-shell" src="icons/home-command-center/shell-quests.svg" alt=""><img class="figma-node-icon figma-icon-square" src="icons/home-command-center/icon-quests.svg" alt=""></span>
           <span class="node-glyph node-glyph-raster node-glyph-quests"></span>
           <span class="node-icon-assembly icon-assembly-quests">
             <span class="quest-closed-roll"></span>
@@ -125,6 +128,7 @@ window.addEventListener('error', function(e){
       <button class="constellation-node node-skill" type="button" aria-label="Skill Tree unavailable" aria-disabled="true" tabindex="-1" data-icon-animation="skill" data-icon-duration="4200" data-icon-wake-delay="340">
         <span class="node-label node-label-top" aria-hidden="true">Skill Tree</span>
         <span class="node-frame node-frame-preview" aria-hidden="true">
+          <span class="figma-node-art" aria-hidden="true"><img class="figma-node-shell" src="icons/home-command-center/shell-skill.svg" alt=""><img class="figma-node-icon figma-icon-square" src="icons/home-command-center/icon-skill.svg" alt=""></span>
           <span class="node-glyph node-glyph-raster node-glyph-skill"></span>
           <span class="node-icon-assembly icon-assembly-skill">
             <svg class="skill-tree-build" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
@@ -165,6 +169,7 @@ window.addEventListener('error', function(e){
       <a class="constellation-node gated-node node-rewards" href="rewards.html" aria-label="Rewards" aria-disabled="true" tabindex="-1" data-wake-delay="380" data-icon-animation="rewards" data-icon-duration="3180">
         <span class="node-label node-label-bottom" aria-hidden="true">Rewards</span>
         <span class="node-frame" aria-hidden="true">
+          <span class="figma-node-art" aria-hidden="true"><img class="figma-node-shell" src="icons/home-command-center/shell-rewards.svg" alt=""><img class="figma-node-icon figma-icon-square" src="icons/home-command-center/icon-rewards.svg" alt=""></span>
           <span class="node-glyph node-glyph-raster node-glyph-rewards"></span>
           <span class="node-icon-assembly icon-assembly-rewards">
             <span class="icon-piece rewards-wheel-piece"></span>
@@ -183,6 +188,7 @@ window.addEventListener('error', function(e){
       <a class="constellation-node gated-node node-boss" href="boss.html" aria-label="Boss" aria-disabled="true" tabindex="-1" data-wake-delay="400" data-icon-animation="boss" data-icon-duration="3180">
         <span class="node-label node-label-bottom" aria-hidden="true">Boss</span>
         <span class="node-frame" aria-hidden="true">
+          <span class="figma-node-art" aria-hidden="true"><img class="figma-node-shell" src="icons/home-command-center/shell-boss.svg" alt=""><img class="figma-node-icon figma-icon-square" src="icons/home-command-center/icon-boss.svg" alt=""></span>
           <span class="node-glyph node-glyph-raster node-glyph-boss"></span>
           <span class="node-icon-assembly icon-assembly-boss">
             <span class="icon-piece boss-frame-piece boss-frame-tl"></span>
@@ -204,6 +210,7 @@ window.addEventListener('error', function(e){
       <a class="constellation-node gated-node node-stats" href="stats.html" aria-label="Stats" aria-disabled="true" tabindex="-1" data-wake-delay="380" data-icon-animation="stats" data-icon-duration="3180">
         <span class="node-label node-label-bottom" aria-hidden="true">Stats</span>
         <span class="node-frame" aria-hidden="true">
+          <span class="figma-node-art figma-node-art-stats" aria-hidden="true"><img class="figma-stats-shell figma-stats-shell-outer" src="icons/home-command-center/shell-stats-outer.svg" alt=""><img class="figma-stats-shell figma-stats-shell-inner" src="icons/home-command-center/shell-stats-inner.svg" alt=""><img class="figma-node-icon figma-icon-stats" src="icons/home-command-center/icon-stats.png" alt=""></span>
           <span class="node-glyph node-glyph-raster node-glyph-stats"></span>
           <svg class="node-border-assembly" viewBox="0 0 100 100" preserveAspectRatio="none">
             <path class="node-frame-progress" pathLength="1" d="M50 0 L93.301 25 L93.301 75 L50 100 L6.699 75 L6.699 25 Z"/>
@@ -214,7 +221,7 @@ window.addEventListener('error', function(e){
       </a>
 
       <div class="core-anchor">
-        <div class="shield-wrap" id="shield-wrap" onclick="hitShield(event)" role="button" aria-label="Daily shield" aria-disabled="false" tabindex="0">
+        <div class="shield-wrap" id="shield-wrap" onclick="hitShield(event)" role="button" aria-label="Daily shield" aria-describedby="shield-interaction-hint" aria-disabled="false" tabindex="0">
           <div class="ring ring1"></div><div class="ring ring2"></div><div class="ring ring3"></div>
           <div class="impact-ring" id="impact-ring"></div>
           <div class="shield-body" id="shield-body">
@@ -236,7 +243,8 @@ window.addEventListener('error', function(e){
             </svg>
           </div>
         </div>
-        <button class="energy-core" id="energy-core" type="button" aria-label="Character energy core" aria-disabled="true" aria-hidden="true" tabindex="-1">
+        <span class="sr-only" id="shield-interaction-hint">Tap to damage the shield. Hold and drag to tilt it.</span>
+        <button class="energy-core" id="energy-core" type="button" aria-label="Character energy core" aria-describedby="core-interaction-hint" aria-disabled="true" aria-hidden="true" tabindex="-1">
           <span class="neutron-star-halo neutron-star-halo-outer" aria-hidden="true"></span>
           <span class="neutron-star-halo neutron-star-halo-inner" aria-hidden="true"></span>
           <span class="neutron-star-corona" aria-hidden="true"></span>
@@ -274,6 +282,7 @@ window.addEventListener('error', function(e){
             <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(243,253,255,.68)" stroke-width="2"/>
           </svg>
         </button>
+        <span class="sr-only" id="core-interaction-hint">Hold and move the energy core gently. It pulls back if moved too far.</span>
       </div>
     </div>
     <span class="sr-only" id="gate-status" aria-live="polite"></span>
