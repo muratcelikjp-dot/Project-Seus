@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "check:syntax": "node scripts/check-js.mjs",
-    "test": "node --test tests/gamestate.persistence.test.js",
+    "test": "node --test tests/gamestate.persistence.test.js tests/shield-animation.test.js",
     "verify": "npm run check:syntax && npm test"
   }
 }

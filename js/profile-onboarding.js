@@ -33,6 +33,7 @@
   const birthParts = { day: null, month: null, year: null };
   let activeStep = "identity";
   let selectedGoals = [];
+  let goalIntroPlayed = false;
   if (window.TerminalCaret) TerminalCaret.bind(nameInput);
 
   function markReady() {
@@ -81,14 +82,18 @@
   }
 
   function renderGoals() {
-    goalGrid.innerHTML = Goals.definitions().map(goal => {
+    const animateIntro = !goalIntroPlayed && !reducedMotion;
+    goalGrid.innerHTML = Goals.definitions().map((goal, index) => {
       const selected = selectedGoals.includes(goal.id);
       const description = goal.description || goal.attributes.map(attribute => attribute.toUpperCase()).join(" + ");
-      return `<button class="onboarding-goal-option${selected ? " selected" : ""}" type="button" data-goal-id="${goal.id}" aria-label="${goal.label}" aria-pressed="${selected}" style="--goal-color:${goalColor(goal)}">
+      const introClass = animateIntro ? " intro-reveal" : "";
+      const revealDelay = index * 90;
+      return `<button class="onboarding-goal-option${selected ? " selected" : ""}${introClass}" type="button" data-goal-id="${goal.id}" aria-label="${goal.label}" aria-pressed="${selected}" style="--goal-color:${goalColor(goal)};--goal-delay:${revealDelay}ms;--goal-copy-delay:${revealDelay + 70}ms">
         <span class="onboarding-goal-icon"><i class="ti ${goal.icon}" aria-hidden="true"></i></span>
         <span class="onboarding-goal-copy"><strong>${goal.label}</strong><span>${description}</span></span>
       </button>`;
     }).join("");
+    goalIntroPlayed = true;
     goalCount.textContent = selectedGoals.length + " / " + Goals.maxSelected;
     goalSave.disabled = selectedGoals.length === 0;
   }
@@ -307,7 +312,11 @@
 
   const existingProfile = UserProfile.get();
   const existingGoals = GameState.get().goals;
-  if (!existingProfile) {
+  const previewDirectives = new URLSearchParams(window.location.search).get("onboarding-preview") === "directives";
+  if (previewDirectives) {
+    showGoalStep(existingProfile || { name: "Preview Player" });
+    open();
+  } else if (!existingProfile) {
     open();
   } else if (!existingGoals.onboardingComplete || existingGoals.selected.length === 0) {
     showGoalStep(existingProfile);
