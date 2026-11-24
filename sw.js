@@ -9,7 +9,7 @@
 //
 // CACHE_VERSION must be bumped on any meaningful app-shell file change.
 const CACHE_PREFIX = "rpg-app-";
-const CACHE_VERSION = "v235";
+const CACHE_VERSION = "v246";
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
 
 const PRECACHE_URLS = [
@@ -27,6 +27,9 @@ const PRECACHE_URLS = [
   "css/plan-modal.css",
   "css/panel-navigation.css",
   "css/daily-checkin.css",
+  "vendor/tabler-icons/2.44.0/tabler-icons.min.css",
+  "vendor/tabler-icons/2.44.0/fonts/tabler-icons.woff2",
+  "vendor/chart.js/4.4.1/chart.umd.js",
   "icons/home-command-center/shell-hero.svg",
   "icons/home-command-center/icon-hero.png",
   "icons/home-command-center/shell-quests.svg",

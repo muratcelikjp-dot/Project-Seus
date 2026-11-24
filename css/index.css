@@ -1137,28 +1137,30 @@ body::after{
 }
 
 .network-base path{
-  stroke:rgba(var(--nerve-rgb),.16);
-  stroke-width:.64;
+  stroke:rgba(111,142,163,.18);
+  stroke-width:.9;
   stroke-linecap:round;
-  transition:opacity .55s ease;
+  transition:stroke .55s ease,opacity .55s ease,filter .55s ease;
 }
 
 .network-flow path{
-  stroke:rgba(var(--nerve-rgb),.78);
+  stroke:var(--abyss-aqua);
   stroke-width:.72;
   stroke-linecap:round;
   stroke-dasharray:1;
   stroke-dashoffset:1;
   opacity:0;
+  filter:drop-shadow(0 0 4px rgba(53,244,230,.48));
 }
 
 .network-impulses path{
-  stroke:rgba(var(--nerve-rgb),.94);
+  stroke:var(--abyss-cyan);
   stroke-width:1.45;
   stroke-linecap:round;
   stroke-dasharray:.1 .9;
   stroke-dashoffset:1;
   opacity:0;
+  filter:drop-shadow(0 0 3px rgba(255,255,255,.72)) drop-shadow(0 0 7px rgba(53,244,230,.72));
 }
 
 .home-energy-packet{
@@ -1167,12 +1169,12 @@ body::after{
   filter:url(#home-energy-texture) drop-shadow(0 0 2px rgba(255,255,255,.88)) drop-shadow(0 0 8px rgba(var(--home-feed-rgb,125,227,255),.82)) drop-shadow(0 0 16px rgba(var(--home-feed-rgb,125,227,255),var(--home-feed-packet-glow,.82)));
 }
 
-.nerve-hero,.flow-hero,.impulse-hero{--nerve-rgb:124,200,255;--flow-time:680ms;--flow-delay:180ms}
-.nerve-quests,.flow-quests,.impulse-quests{--nerve-rgb:53,244,230;--flow-time:560ms;--flow-delay:80ms}
-.nerve-skill,.flow-skill,.impulse-skill{--nerve-rgb:154,167,255;--flow-time:570ms;--flow-delay:95ms}
-.nerve-rewards,.flow-rewards,.impulse-rewards{--nerve-rgb:247,201,72;--flow-time:650ms;--flow-delay:130ms}
-.nerve-boss,.flow-boss,.impulse-boss{--nerve-rgb:255,111,154;--flow-time:670ms;--flow-delay:145ms}
-.nerve-stats,.flow-stats,.impulse-stats{--nerve-rgb:65,230,196;--flow-time:650ms;--flow-delay:130ms}
+.nerve-hero,.flow-hero,.impulse-hero{--flow-time:680ms;--flow-delay:180ms;--river-time:11.4s;--river-delay:-3.6s;--spark-time:24s;--spark-delay:-15s}
+.nerve-quests,.flow-quests,.impulse-quests{--flow-time:560ms;--flow-delay:80ms;--river-time:9.8s;--river-delay:-6.2s;--spark-time:21s;--spark-delay:-4.8s}
+.nerve-skill,.flow-skill,.impulse-skill{--flow-time:570ms;--flow-delay:95ms;--river-time:12.8s;--river-delay:-9.4s;--spark-time:27s;--spark-delay:-12s;--spark-alpha:.14}
+.nerve-rewards,.flow-rewards,.impulse-rewards{--flow-time:650ms;--flow-delay:130ms;--river-time:10.8s;--river-delay:-5.2s;--spark-time:25s;--spark-delay:-19s}
+.nerve-boss,.flow-boss,.impulse-boss{--flow-time:670ms;--flow-delay:145ms;--river-time:12.2s;--river-delay:-1.8s;--spark-time:23s;--spark-delay:-9.6s}
+.nerve-stats,.flow-stats,.impulse-stats{--flow-time:650ms;--flow-delay:130ms;--river-time:10.4s;--river-delay:-8.2s;--spark-time:24s;--spark-delay:-17s}
 
 .shield-gate.wave-fired .network-flow path{
   animation:constellationBranchCharge var(--flow-time) ease-out var(--flow-delay) forwards;
@@ -1183,14 +1185,24 @@ body::after{
 }
 
 .shield-gate.is-settled .network-base path{
-  opacity:.92;
+  stroke:rgba(89,174,196,.16);
+  filter:drop-shadow(0 0 2px rgba(53,244,230,.1));
 }
 .shield-gate.is-settled .network-flow path{
-  opacity:0;
+  stroke-dasharray:.08 .32;
+  stroke-dashoffset:0;
+  opacity:.22;
+  animation:neuralRiverInflow var(--river-time) linear var(--river-delay) infinite;
 }
 .shield-gate.is-settled .network-impulses path{
+  --spark-alpha:.42;
+  stroke-dasharray:.018 .982;
+  stroke-dashoffset:0;
   opacity:0;
+  animation:neuralRiverSpark var(--spark-time) linear var(--spark-delay) infinite;
 }
+.shield-gate.is-settled .network-flow .flow-skill{opacity:.1}
+.shield-gate.is-settled .network-impulses .impulse-skill{--spark-alpha:.12}
 
 .shield-gate.home-feed-active.feed-source-hero .network-flow .flow-hero,
 .shield-gate.home-feed-active.feed-source-quests .network-flow .flow-quests,
@@ -1320,8 +1332,27 @@ body::after{
 }
 
 .figma-node-art{position:absolute;inset:0;z-index:2;pointer-events:none;transition:filter .3s ease,opacity .3s ease}
+.figma-node-art::after{
+  content:"";
+  position:absolute;
+  inset:2%;
+  z-index:2;
+  clip-path:polygon(var(--node-hex));
+  background:
+    linear-gradient(116deg,transparent 0%,transparent 31%,rgba(245,254,255,.2) 42%,rgba(var(--node-rgb),.055) 48%,transparent 59%,transparent 100%) 145% 0/230% 100% no-repeat,
+    linear-gradient(146deg,rgba(220,242,255,.14) 0%,rgba(248,254,255,.03) 23%,transparent 24%,transparent 67%,rgba(var(--node-rgb),.035) 68%,transparent 100%),
+    radial-gradient(circle at 29% 17%,rgba(220,242,255,.22),transparent 38%),
+    radial-gradient(circle at 72% 82%,rgba(var(--node-rgb),.055),transparent 46%),
+    linear-gradient(154deg,rgba(18,31,44,.3),rgba(5,14,26,.38) 48%,rgba(1,7,18,.52));
+  -webkit-backdrop-filter:blur(3px) saturate(1.18);
+  backdrop-filter:blur(3px) saturate(1.18);
+  box-shadow:inset 0 1px 0 rgba(243,254,255,.19),inset 1px 0 0 rgba(var(--node-rgb),.055),inset 0 -12px 24px rgba(0,3,12,.18),inset 0 0 22px rgba(var(--node-rgb),.025);
+  pointer-events:none;
+}
+.shield-gate.is-settled:not(.home-feed-active) .constellation-node .figma-node-art::after{animation:constellationGlassSheen var(--node-sheen-duration,9s) ease-in-out var(--node-sheen-delay,0s) infinite}
 .figma-node-shell,.figma-node-icon,.figma-stats-shell{position:absolute;display:block;object-fit:contain;pointer-events:none}
-.figma-node-shell{inset:0;width:100%;height:100%}
+.figma-node-shell{inset:0;width:100%;height:100%;z-index:1}
+.figma-node-icon{z-index:3}
 .figma-icon-hero{left:15%;top:23.33%;width:70%;height:53.34%}
 .figma-icon-square{left:23.33%;top:23.33%;width:53.34%;height:53.34%}
 .figma-node-art-stats .figma-stats-shell-outer{left:7.78%;top:2.22%;width:86.44%;height:97.56%}
@@ -2477,6 +2508,19 @@ body::after{
   100%{stroke-dashoffset:0;opacity:0}
 }
 
+@keyframes neuralRiverInflow{
+  0%{stroke-dashoffset:0;filter:drop-shadow(0 0 1px rgba(53,244,230,.14))}
+  50%{filter:drop-shadow(0 0 2px rgba(53,244,230,.25))}
+  100%{stroke-dashoffset:1;filter:drop-shadow(0 0 1px rgba(53,244,230,.14))}
+}
+
+@keyframes neuralRiverSpark{
+  0%,68%{stroke-dashoffset:0;opacity:0}
+  73%{opacity:var(--spark-alpha)}
+  96%{opacity:var(--spark-alpha)}
+  100%{stroke-dashoffset:1;opacity:0}
+}
+
 @keyframes questNerveCharge{
   0%{stroke-dashoffset:-1;opacity:.08}
   18%{opacity:.68}
@@ -2653,6 +2697,7 @@ body::after{
   .shield-gate.is-settled .node-frame::after{animation:none}
   .constellation-node.is-node-pressed{transform:translate(-50%,-50%) scale(1.04)}
   .figma-node-art{animation:none!important;transition:none}
+  .figma-node-art::after{animation:none!important}
   .figma-node-icon{animation:none!important}
   .shield-body.directional-hit{animation:none}
   .fracture-path{animation:none;stroke-dashoffset:0;opacity:.82}
