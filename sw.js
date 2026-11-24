@@ -9,7 +9,7 @@
 //
 // CACHE_VERSION must be bumped on any meaningful app-shell file change.
 const CACHE_PREFIX = "rpg-app-";
-const CACHE_VERSION = "v246";
+const CACHE_VERSION = "v248";
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
 
 const PRECACHE_URLS = [
@@ -33,13 +33,13 @@ const PRECACHE_URLS = [
   "icons/home-command-center/shell-hero.svg",
   "icons/home-command-center/icon-hero.png",
   "icons/home-command-center/shell-quests.svg",
-  "icons/home-command-center/icon-quests.svg",
+  "icons/home-command-center/icon-quests.png",
   "icons/home-command-center/shell-skill.svg",
-  "icons/home-command-center/icon-skill.svg",
+  "icons/home-command-center/icon-skill.png",
   "icons/home-command-center/shell-rewards.svg",
-  "icons/home-command-center/icon-rewards.svg",
+  "icons/home-command-center/icon-rewards.png",
   "icons/home-command-center/shell-boss.svg",
-  "icons/home-command-center/icon-boss.svg",
+  "icons/home-command-center/icon-boss.png",
   "icons/home-command-center/shell-stats-outer.svg",
   "icons/home-command-center/shell-stats-inner.svg",
   "icons/home-command-center/icon-stats.png",
