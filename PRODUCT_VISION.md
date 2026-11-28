@@ -50,8 +50,8 @@ Every completed action should connect back to the feeling that the user is becom
 
 ## 5. Current Development Workflow
 
-- ChatGPT acts as project manager / architect.
-- Codex edits code in small safe steps.
+- ChatGPT or Claude acts as project manager / architect.
+- Codex or Claude Code edits code in small safe steps, following `AGENTS.md`.
 - Test locally first.
 - Commit and push to main.
 - Verify GitHub Pages and iPhone PWA using the version badge.
