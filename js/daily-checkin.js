@@ -75,6 +75,7 @@
   }
 
   function openIfNeeded() {
+    if (document.body.hasAttribute("data-quest-focus")) return;
     if (!global.GameState || !global.DailyState || getTodayEntry()) return;
     const onboarding = document.getElementById("profile-onboarding");
     if (onboarding && onboarding.classList.contains("open")) {

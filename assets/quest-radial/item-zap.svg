@@ -1,0 +1,14 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="118" height="122" viewBox="0 0 118 122" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Item Zap">
+<rect x="2" y="2" width="114" height="118" rx="57" fill="#1A1A1A"/>
+<rect x="2" y="2" width="114" height="118" rx="57" stroke="#2A2A2A" stroke-width="4"/>
+<ellipse id="Hot" cx="59" cy="61" rx="59" ry="61" fill="url(#paint0_linear_0_2489)"/>
+<path id="Bolt" d="M60.6389 33.0417L42.6111 63.5417H55.7222L52.4444 88.9583L75.3889 55.0694H60.6389V33.0417Z" fill="#FFCE1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#FFCE1F"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_0_2489" x1="17.2807" y1="17.8665" x2="103.5" y2="101.259" gradientUnits="userSpaceOnUse">
+<stop stop-color="#5B3FD0"/>
+<stop offset="1" stop-color="#8B6CF0"/>
+</linearGradient>
+</defs>
+</svg>

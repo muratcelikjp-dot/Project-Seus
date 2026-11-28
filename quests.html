@@ -17,6 +17,8 @@
 <link rel="stylesheet" href="css/plan-modal.css">
 <link rel="stylesheet" href="css/panel-navigation.css">
 <link rel="stylesheet" href="css/daily-checkin.css">
+<link rel="stylesheet" href="css/quest-radial-motion.css">
+<link rel="stylesheet" href="css/quest-radial.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--ab:#020D18;--ab2:#04192E;--ab3:#071F38;--neon:#00E5FF;--oc:#00B4D8;--ocd:#005F87;--bd:rgba(0,180,216,0.18);--bd2:rgba(0,180,216,0.36);--tx:#C8EAF5;--txd:#4A7A90;--txm:#7BAFC8;--am:#EF9F27;--gr:#1D9E75;--re:#E24B4A}
@@ -246,7 +248,7 @@ body.modal-active{overflow:hidden}.modal-overlay{z-index:45;padding-top:calc(12p
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.main-clear-feedback.show{animation:none!important;opacity:1;visibility:visible}.qc.main-clearing{animation:none!important}}
 </style>
 </head>
-<body data-panel="quests">
+<body data-panel="quests" data-quest-focus>
 <div id="global-error-banner" style="display:none;position:fixed;top:0;left:0;right:0;background:#5a1010;color:#ffdede;padding:12px 14px;font-family:monospace;font-size:11px;z-index:99999;max-height:40vh;overflow-y:auto;white-space:pre-wrap;border-bottom:2px solid #ff4444"></div>
 <script>
 window.addEventListener('error', function(e){
@@ -272,6 +274,7 @@ window.addEventListener('error', function(e){
       </div>
     </div>
   </header>
+  <a class="quest-focus-home" href="index.html"><i class="ti ti-home" aria-hidden="true"></i> Home</a>
   <section class="daily-hud">
     <div class="hud-top">
       <time class="hud-title" id="quest-date"></time>
@@ -346,6 +349,11 @@ window.addEventListener('error', function(e){
       </button>
     </div>
   </div>
+  <section id="quest-map" class="quest-map" aria-label="Quest map">
+    <div class="quest-map-grid" id="quest-map-grid"></div>
+    <div class="quest-map-status" id="quest-map-status" role="status"></div>
+  </section>
+  <div class="quest-map-below" id="quest-map-below">
   <section class="main-quest-slot" id="main-quest-slot" hidden>
     <div class="main-quest-mark"><i class="ti ti-crown" id="main-quest-icon" aria-hidden="true"></i></div>
     <div class="main-quest-body"><div class="main-quest-kicker">Today's Main Quest</div><div class="main-quest-title" id="main-quest-title">Not assigned</div><div class="main-quest-state" id="main-quest-state">Select your priority</div><div class="main-quest-effect" id="main-quest-effect" hidden><i class="ti ti-bolt" aria-hidden="true"></i><span>Momentum / next Side Quest +10% XP</span></div></div>
@@ -370,7 +378,13 @@ window.addEventListener('error', function(e){
     <div class="ad-sub">Rest, warrior. A new seal awaits tomorrow.</div>
   </div>
   <div id="day-report-banner"></div>
+  </div>
 </div>
+<dialog class="quest-slot-dialog" id="quest-slot-dialog" aria-label="Quest details">
+  <form method="dialog">
+    <button class="quest-slot-close" type="submit" aria-label="Close quest details">×</button>
+  </form>
+</dialog>
 <div class="quest-bottom-nav" aria-label="Quest filters and actions">
   <section class="quest-trait-examples" id="quest-trait-examples" role="region" aria-labelledby="quest-trait-examples-title" aria-hidden="true" inert>
     <header class="quest-trait-examples-head">
@@ -384,9 +398,19 @@ window.addEventListener('error', function(e){
     </header>
     <div class="quest-trait-examples-list" id="quest-trait-examples-list" role="list" aria-label="Suggested quest examples"></div>
   </section>
-  <div class="filters" id="filters" role="group" aria-label="Filter quests by attribute"></div>
-  <div class="quest-actions">
-    <button class="add-btn primary-action" type="button" onclick="openModal()"><i class="ti ti-plus" aria-hidden="true"></i> New Quest</button>
+  <div class="quest-radial-toolbar" id="filters" role="group" aria-label="Filter quests by attribute">
+    <button class="quest-radial-tool" id="quest-radial-all" type="button">All</button>
+    <button class="quest-radial-toggle" id="quest-radial-toggle" type="button" aria-label="Trait filters" aria-expanded="false" aria-controls="quest-radial-nodes">
+      <span class="riff-stage quest-radial-fab" aria-hidden="true">
+        <span class="quest-radial-fab-layer" data-node-id="199:6002"><img src="assets/quest-radial/fab-quest.svg" alt=""></span>
+        <span class="quest-radial-fab-pivot" data-node-id="199:6003"></span>
+      </span>
+    </button>
+    <button class="quest-radial-tool" id="quest-radial-examples" type="button" aria-expanded="false" aria-controls="quest-trait-examples">Examples</button>
+    <div class="riff-stage quest-radial-stage" id="quest-radial-nodes" hidden></div>
+    <div class="quest-actions">
+      <button class="add-btn primary-action" type="button" onclick="openModal()"><i class="ti ti-plus" aria-hidden="true"></i> New Quest</button>
+    </div>
   </div>
 </div>
 
@@ -513,6 +537,7 @@ window.addEventListener('error', function(e){
 <script src="js/attribute-icons.js"></script>
 <script src="js/terminal-caret.js"></script>
 <script src="js/plan-modal.js"></script>
+<script src="js/quest-radial.js"></script>
 <script>
 const ATTRS=[
   {id:'intel',label:'Intelligence',icon:'ti-book',    col:'#35F4E6',bg:'rgba(53,244,230,.1)', bd:'rgba(53,244,230,.3)', ability:'Active Reader — you question what you read'},
@@ -529,10 +554,34 @@ const ATTR_ID_MAP={intel:'intelligence',str:'strength',cha:'charisma',wil:'willp
 const ATTR_ID_REVERSE={intelligence:'intel',strength:'str',charisma:'cha',willpower:'wil'};
 const FILTER_TRAIT_COLORS={all:'#39A7FF',intel:'#65E5F5',str:'#41DBAB',cha:'#D08FE8',wil:'#F17B9B'};
 const TRAIT_QUEST_EXAMPLES=Object.freeze({
-  intel:[{title:'Coding practice',detail:'15 minutes of focused practice'},{title:'Read 10 pages',detail:'Read a book without distractions'}],
-  str:[{title:'Strength workout',detail:'Complete the training you planned'},{title:'Brisk walk',detail:'Move continuously for 20 minutes'}],
-  cha:[{title:'Start a conversation',detail:'Talk with someone you do not know well'},{title:'Send a thoughtful message',detail:'Reach out to a friend or family member'}],
-  wil:[{title:'Take a cold shower',detail:'Finish with 30 seconds of cool water'},{title:'Start the postponed task',detail:'Work on it for just five minutes'}]
+  intel:[
+    {title:'Coding practice',detail:'15 minutes of focused practice',label:'Code 15 min',icon:'ti-code',difficulty:'normal'},
+    {title:'Read 10 pages',detail:'Read a book without distractions',label:'Read 10 pages',icon:'ti-book',difficulty:'easy'},
+    {title:'Review 10 vocabulary cards',detail:'Recall the meaning before checking each answer',label:'Vocab review',icon:'ti-language',difficulty:'easy'},
+    {title:'Summarize today’s lesson',detail:'Write three points from memory',label:'Lesson notes',icon:'ti-notes',difficulty:'easy'},
+    {title:'Solve one practice problem',detail:'Work through the solution and check your answer',label:'Solve a problem',icon:'ti-brain',difficulty:'normal'}
+  ],
+  str:[
+    {title:'Complete a strength workout',detail:'Complete the training you planned',label:'Workout',icon:'ti-barbell',difficulty:'normal'},
+    {title:'Take a brisk 20-minute walk',detail:'Move continuously for 20 minutes',label:'Brisk walk',icon:'ti-walk',difficulty:'easy'},
+    {title:'Do 10 bodyweight squats',detail:'Complete 10 controlled repetitions',label:'10 squats',icon:'ti-stretching',difficulty:'easy'},
+    {title:'Climb stairs for 5 minutes',detail:'Climb at a comfortable pace',label:'5 min stairs',icon:'ti-stairs',difficulty:'easy'},
+    {title:'Jog for 10 minutes',detail:'Keep a steady, comfortable pace',label:'10 min jog',icon:'ti-run',difficulty:'normal'}
+  ],
+  cha:[
+    {title:'Start a conversation',detail:'Talk with someone you do not know well',label:'Start a chat',icon:'ti-message-circle',difficulty:'normal'},
+    {title:'Send a thoughtful message',detail:'Reach out to a friend or family member',label:'Send a message',icon:'ti-mail',difficulty:'easy'},
+    {title:'Practice active listening',detail:'Ask a follow-up question before sharing your view',label:'Listen',icon:'ti-ear',difficulty:'easy'},
+    {title:'Introduce yourself to someone new',detail:'Share your name and ask a simple question',label:'Introduce yourself',icon:'ti-users',difficulty:'normal'},
+    {title:'Give a specific compliment',detail:'Tell someone what you appreciated and why',label:'Give a compliment',icon:'ti-heart-handshake',difficulty:'easy'}
+  ],
+  wil:[
+    {title:'Take a cold shower',detail:'Finish with 30 seconds of cool water',label:'Cool shower',icon:'ti-droplet',difficulty:'normal'},
+    {title:'Start the postponed task',detail:'Work on it for just five minutes',label:'Start 5 min',icon:'ti-hourglass',difficulty:'easy'},
+    {title:'Put your phone away for 25 minutes',detail:'Keep distractions out of reach for one work block',label:'Phone away',icon:'ti-device-mobile-off',difficulty:'normal'},
+    {title:'Follow a planned start time',detail:'Begin one task at the time you picked',label:'Start on time',icon:'ti-alarm',difficulty:'easy'},
+    {title:'Finish one unfinished task',detail:'Choose a small task and complete it today',label:'Finish a task',icon:'ti-checklist',difficulty:'normal'}
+  ]
 });
 function getTraitQuestExamples(id){
   const traitIds=['intel','str','cha','wil'];
@@ -1050,15 +1099,8 @@ function renderHeader(){
 }
 function renderFilters(){
   const items=[{id:'all',label:'All',icon:'ti-layout-grid'},...ATTRS].map(item=>({ ...item,col:FILTER_TRAIT_COLORS[item.id] }));
-  const filters=document.getElementById('filters');
-  const activeIndex=Math.max(0,items.findIndex(item=>item.id===st.filter));
-  const activeItem=items[activeIndex];
-  filters.style.setProperty('--active-filter-step',Math.max(0,(filters.clientWidth-16)/5*activeIndex)+'px');
-  filters.style.setProperty('--active-filter-color',activeItem.col);
-  filters.style.setProperty('--active-filter-fill',`color-mix(in srgb,${activeItem.col} 14%,transparent)`);
-  filters.style.setProperty('--active-filter-border',`color-mix(in srgb,${activeItem.col} 28%,transparent)`);
-  filters.innerHTML=items.map(f=>`<button class="fb${st.filter===f.id?' on':''}" type="button" style="--filter-color:${f.col}" onclick="setF('${f.id}')" aria-label="${f.label}" aria-pressed="${st.filter===f.id?'true':'false'}" aria-controls="quest-trait-examples" aria-expanded="${st.filter===f.id&&traitExamplesOpen?'true':'false'}" title="${f.label}">${AttributeIcons.markup(ATTR_ID_MAP[f.id]||f.id,f.icon)}<span>${f.label}</span></button>`).join('');
-  renderTraitExamples(activeItem);
+  QuestRadial.render(items.slice(1),st.filter,item=>AttributeIcons.markup(ATTR_ID_MAP[item.id],item.icon));
+  renderTraitExamples(items.find(item=>item.id===st.filter)||items[0]);
 }
 function renderTraitExamples(activeItem){
   const panel=document.getElementById('quest-trait-examples');
@@ -1080,20 +1122,17 @@ function setTraitExamplesOpen(open,restoreFocus=false){
   traitExamplesOpen=!!open;
   const nav=document.querySelector('.quest-bottom-nav');
   const panel=document.getElementById('quest-trait-examples');
-  const filters=document.getElementById('filters');
   if(nav)nav.classList.toggle('trait-panel-open',traitExamplesOpen);
   if(panel){panel.setAttribute('aria-hidden',traitExamplesOpen?'false':'true');panel.inert=!traitExamplesOpen;}
-  const activeButton=filters&&filters.querySelector('.fb.on');
-  if(activeButton)activeButton.setAttribute('aria-expanded',traitExamplesOpen?'true':'false');
-  if(!traitExamplesOpen&&restoreFocus&&activeButton)activeButton.focus();
+  const examplesButton=document.getElementById('quest-radial-examples');
+  examplesButton.setAttribute('aria-expanded',String(traitExamplesOpen));
+  if(!traitExamplesOpen&&restoreFocus)examplesButton.focus();
 }
 function setF(id){
   if(id!=='all'&&!ATTR_ID_MAP[id])return;
-  const nextOpen=st.filter===id?!traitExamplesOpen:true;
   st.filter=id;
   renderFilters();
   renderQuests();
-  setTraitExamplesOpen(nextOpen);
 }
 document.addEventListener('keydown',event=>{
   if(event.key==='Escape'&&traitExamplesOpen){event.preventDefault();event.stopPropagation();setTraitExamplesOpen(false,true)}
@@ -1102,14 +1141,9 @@ document.addEventListener('pointerdown',event=>{
   const nav=document.querySelector('.quest-bottom-nav');
   if(traitExamplesOpen&&nav&&!nav.contains(event.target))setTraitExamplesOpen(false);
 });
-window.addEventListener('resize',()=>{
-  const filters=document.getElementById('filters');
-  if(!filters)return;
-  const index=Math.max(0,[{id:'all'},...ATTRS].findIndex(item=>item.id===st.filter));
-  filters.style.setProperty('--active-filter-step',Math.max(0,(filters.clientWidth-16)/5*index)+'px');
-});
 function renderQuests(){
   const tasks=gs.quests.active;
+  QuestRadial.renderMap(tasks);
   renderDailyLoad();
   renderMinimumProtocol();
   renderMainQuestSlot();
@@ -1117,7 +1151,8 @@ function renderQuests(){
   renderBossMission();
   renderCompletedVisibility(tasks);
   const visibleTasks=hideCompleted?tasks.filter(t=>!t.done):tasks;
-  const vis=st.filter==='all'?visibleTasks:visibleTasks.filter(t=>ATTR_ID_REVERSE[t.attribute]===st.filter);
+  const detailId=document.getElementById('quest-slot-dialog').dataset.questId;
+  const vis=detailId?visibleTasks.filter(t=>t.id===detailId):st.filter==='all'?visibleTasks:visibleTasks.filter(t=>ATTR_ID_REVERSE[t.attribute]===st.filter);
   const list=document.getElementById('qlist');list.innerHTML='';
   const allClearedHidden=hideCompleted&&tasks.length>0&&tasks.every(task=>task.done);
   if(vis.length===0&&!allClearedHidden){
@@ -1425,7 +1460,20 @@ function updateForgePreview(){
   document.getElementById('forge-preview-xp').innerHTML='<span><i class="ti ti-dna-2"></i>'+xpMap[st.sd]+' XP</span><small><i class="ti ti-coin"></i>'+Quests.getCreditReward(st.sd)+' CR</small>';
 }
 function clearForgeError(){document.getElementById('quest-input-shell').classList.remove('invalid');document.getElementById('quest-input-error').classList.remove('show')}
-function openModal(){setTraitExamplesOpen(false);st.sd='easy';st.sc='intel';document.getElementById('qin').value='';if(window.TerminalCaret)TerminalCaret.measure(document.getElementById('qin'));clearForgeError();renderCG();renderDG();document.body.classList.add('modal-active');document.getElementById('modal').classList.add('open');setTimeout(()=>document.getElementById('qin').focus(),360);}
+function openModal({title='',traitId='intel',difficulty='easy'}={}){
+  setTraitExamplesOpen(false);
+  st.sd=difficulty;
+  st.sc=traitId;
+  const input=document.getElementById('qin');
+  input.value=title;
+  if(window.TerminalCaret)TerminalCaret.measure(input);
+  clearForgeError();
+  renderCG();
+  renderDG();
+  document.body.classList.add('modal-active');
+  document.getElementById('modal').classList.add('open');
+  setTimeout(()=>input.focus(),360);
+}
 function closeModal(){document.getElementById('modal').classList.remove('open');document.body.classList.remove('modal-active');clearForgeError()}
 function bgClose(e){if(e.target===document.getElementById('modal'))closeModal()}
 function selD(el){st.sd=el.dataset.d;renderDG()}
@@ -1434,14 +1482,21 @@ function renderCG(){const g=document.getElementById('catg');g.innerHTML='';ATTRS
 function addQ(){
   const title=document.getElementById('qin').value.trim();
   if(!title){document.getElementById('quest-input-shell').classList.add('invalid');document.getElementById('quest-input-error').classList.add('show');document.getElementById('qin').focus();return}
+  saveQuest({title,traitId:st.sc,difficulty:st.sd});
+  closeModal();
+}
+function saveQuest({title,traitId,difficulty,mapSlot}){
   const xpMap={easy:50,normal:100,hard:200};
+  let quest;
   GameState.set(state=>{
-    Quests.addQuest(state,{title,attribute:ATTR_ID_MAP[st.sc],difficulty:st.sd,xp:xpMap[st.sd]});
+    if(mapSlot!==undefined&&!QuestRadial.slotAvailable(state.quests.active,traitId,mapSlot))return;
+    quest=Quests.addQuest(state,{title,attribute:ATTR_ID_MAP[traitId],difficulty,xp:xpMap[difficulty]});
+    if(mapSlot!==undefined)quest.mapSlot=mapSlot;
   });
   refreshFromGameState();
-  closeModal();
   renderHeader();
   renderQuests();
+  return quest;
 }
 
 if(window.TerminalCaret)TerminalCaret.bind(document.getElementById('qin'));

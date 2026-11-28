@@ -1,0 +1,6 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="22.9444" height="23.7222" viewBox="0 0 22.9444 23.7222" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="stroke0_0_858" fill="white">
+<path d="M22.9444 11.8611C22.9444 18.4118 17.8082 23.7222 11.4722 23.7222C5.13629 23.7222 0 18.4118 0 11.8611C0 5.3104 5.13629 0 11.4722 0C17.8082 0 22.9444 5.3104 22.9444 11.8611Z"/>
+</mask>
+<ellipse id="Lens" cx="11.4722" cy="11.8611" rx="11.4722" ry="11.8611" stroke-width="12" stroke="#EDEDED" mask="url(#stroke0_0_858)"/>
+</svg>

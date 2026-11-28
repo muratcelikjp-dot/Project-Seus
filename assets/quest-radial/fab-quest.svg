@@ -1,0 +1,12 @@
+<svg preserveAspectRatio="none" width="228" height="232" viewBox="0 0 228 232" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="glow" x="0" y="0" width="228" height="232" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#2F9DFF" flood-opacity=".5"/>
+    </filter>
+    <linearGradient id="fill" x1="67.331" y1="51.9167" x2="163.455" y2="145.213" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2F9DFF"/>
+      <stop offset="1" stop-color="#35F4E6"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="114" cy="100" rx="66" ry="68" fill="url(#fill)" filter="url(#glow)"/>
+</svg>

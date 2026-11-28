@@ -9,13 +9,35 @@
 //
 // CACHE_VERSION must be bumped on any meaningful app-shell file change.
 const CACHE_PREFIX = "rpg-app-";
-const CACHE_VERSION = "v248";
+const CACHE_VERSION = "v273";
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
 
 const PRECACHE_URLS = [
   "./",
   "index.html",
   "quests.html",
+  "css/quest-radial.css",
+  "css/quest-radial-motion.css",
+  "js/quest-radial.js",
+  "assets/quest-radial/particle0.svg",
+  "assets/quest-radial/particle1.svg",
+  "assets/quest-radial/particle2.svg",
+  "assets/quest-radial/particle3.svg",
+  "assets/quest-radial/particle4.svg",
+  "assets/quest-radial/particle5.svg",
+  "assets/quest-radial/particle6.svg",
+  "assets/quest-radial/particle7.svg",
+  "assets/quest-radial/particle8.svg",
+  "assets/quest-radial/particle9.svg",
+  "assets/quest-radial/particle10.svg",
+  "assets/quest-radial/particle11.svg",
+  "assets/quest-radial/select-ring.svg",
+  "assets/quest-radial/gold-glow.svg",
+  "assets/quest-radial/fab-quest.svg",
+  "assets/quest-radial/scrim-glow.svg",
+  "assets/quest-radial/guide-ring.svg",
+  "assets/quest-radial/ripple0.svg",
+  "assets/quest-radial/ripple1.svg",
   "hero.html",
   "stats.html",
   "boss.html",

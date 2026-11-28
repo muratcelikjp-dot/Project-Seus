@@ -1,0 +1,18 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="118" height="122" viewBox="0 0 118 122" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Item Voice">
+<rect x="2" y="2" width="114" height="118" rx="57" fill="#1A1A1A"/>
+<rect x="2" y="2" width="114" height="118" rx="57" stroke="#2A2A2A" stroke-width="4"/>
+<ellipse id="Hot" cx="59" cy="61" rx="59" ry="61" fill="url(#paint0_linear_0_1241)"/>
+<g id="Capsule">
+<rect x="48.8889" y="30.1111" width="20.2222" height="38.0556" rx="10.1111" stroke="#EDEDED" stroke-width="6"/>
+</g>
+<rect id="Stand" x="57.3611" y="77.9444" width="3.27778" height="10.1667" fill="#EDEDED"/>
+<rect id="Base" x="45.8889" y="88.1111" width="26.2222" height="5.08333" rx="2.54167" fill="#EDEDED"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_0_1241" x1="17.2807" y1="17.8665" x2="103.5" y2="101.259" gradientUnits="userSpaceOnUse">
+<stop stop-color="#5B3FD0"/>
+<stop offset="1" stop-color="#8B6CF0"/>
+</linearGradient>
+</defs>
+</svg>
