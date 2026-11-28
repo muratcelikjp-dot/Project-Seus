@@ -3,7 +3,7 @@
 ## Normal change
 
 1. Start from an up-to-date `main` and create a focused branch such as `feature/quest-filter` or `fix/save-migration`.
-2. Ask Codex to inspect the relevant files and `AGENTS.md`, then implement the smallest complete change.
+2. Ask the coding agent (Codex or Claude Code) to inspect the relevant files and `AGENTS.md`, then implement the smallest complete change.
 3. Run `npm run verify`.
 4. For visual work, inspect the changed page on the required mobile widths and check the console.
 5. Push the branch and open a pull request.
